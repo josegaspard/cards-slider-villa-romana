@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    .card-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .card {
+      flex: 1 1 100%;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 10px;
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        flex: 1 0 45%; /* en tabletas y ordenadores, las tarjetas ocupan aproximadamente la mitad del ancho */
+      }
+    }
+
+    .slider {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      display: none;
+    }
+
+    .slide:first-child {
+      display: block;
+    }
+
+    .slide-navigation {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .slide-number {
+      margin: 0 10px;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .slide-prev,
+    .slide-next {
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .content ul {
+      padding: 0;
+    }
+
+    .content li {
+      list-style: none;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .buttons button {
+      flex: 1;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      background: black;
+      color: white;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .buttons button:last-child {
+      margin-right: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-wrapper">
+    <div class="card">
+      <div class="slider">
+        <div class="slide" style="background-image: url('https://www.fourseasons.com/alt/img-opt/~70.961/publish/content/dam/fourseasons/images/web/BUE/BUE_361_aspect16x9.jpg')"></div>
+        <div class="slide" style="background-image: url('https://www.fourseasons.com/alt/img-opt/~70.961/publish/content/dam/fourseasons/images/web/BUE/BUE_365_aspect16x9.jpg')"></div>
+        <div class="slide" style="background-image: url('https://www.fourseasons.com/alt/img-opt/~70.961/publish/content/dam/fourseasons/images/web/BUE/BUE_361_aspect16x9.jpg')"></div>
+        <div class="slide-navigation">
+          <div class="slide-prev"> < </div>
+          <div class="slide-number">1 / 3</div>
+          <div class="slide-next"> > </div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>Título del card</h2>
+        <ul>
+          <li><i class="icon-home"></i> Una cama King, Dos camas extra</li>
+          <li><i class="icon-ruler"></i> 180 m² (1.937 ft²)</li>
+          <li><i class="icon-people"></i> Tres adultos, o dos adultos y un niño</li>
+        </ul>
+        <div class="buttons">
+          <button>VERIFICAR TARIFAS</button>
+          <button>DETALLES</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="slider">
+        <div class="slide" style="background-image: url('https://www.fourseasons.com/alt/img-opt/~70.961/publish/content/dam/fourseasons/images/web/BUE/BUE_361_aspect16x9.jpg')"></div>
+        <div class="slide" style="background-image: url('https://www.fourseasons.com/alt/img-opt/~70.961/publish/content/dam/fourseasons/images/web/BUE/BUE_365_aspect16x9.jpg')"></div>
+        <div class="slide" style="background-image: url('https://www.fourseasons.com/alt/img-opt/~70.961/publish/content/dam/fourseasons/images/web/BUE/BUE_361_aspect16x9.jpg')"></div>
+        <div class="slide-navigation">
+          <div class="slide-prev"> < </div>
+          <div class="slide-number">1 / 3</div>
+          <div class="slide-next"> > </div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>Título del card</h2>
+        <ul>
+          <li><i class="icon-home"></i> Una cama King, Dos camas extra</li>
+          <li><i class="icon-ruler"></i> 180 m² (1.937 ft²)</li>
+          <li><i class="icon-people"></i> Tres adultos, o dos adultos y un niño</li>
+        </ul>
+        <div class="buttons">
+          <button>VERIFICAR TARIFAS</button>
+          <button>DETALLES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $('.card').each(function() {
+        var currentSlide = 0;
+        var totalSlides = $(this).find('.slide').length;
+        var $slider = $(this);
+
+        $slider.find('.slide-number').text((currentSlide + 1) + ' / ' + totalSlides);
+
+        function changeSlide(n) {
+          currentSlide = (n + totalSlides) % totalSlides;
+          $slider.find('.slide').hide().eq(currentSlide).show();
+          $slider.find('.slide-number').text((currentSlide + 1) + ' / ' + totalSlides);
+        }
+
+        $slider.find('.slide-next').click(function() {
+          changeSlide(currentSlide + 1);
+        });
+
+        $slider.find('.slide-prev').click(function() {
+          changeSlide(currentSlide - 1);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
